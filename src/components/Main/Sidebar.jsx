@@ -1,10 +1,47 @@
-import { Box } from '@mui/material'
+import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import Divider from '@mui/material/Divider';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import InboxIcon from '@mui/icons-material/Inbox';
+import DraftsIcon from '@mui/icons-material/Drafts';
 import React from 'react'
 
 export const Sidebar = () => {
   return (
-    <Box bgcolor="lightblue" flex={1} p={2} sx={{display:{xs:"none" , sm:"block"}}}>
-      Sidebar
+    <Box flex={1.5} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+      <Box width="21%" position='fixed'>
+
+        <List sx={{ width: '100%', fontSize: "5px", bgcolor: 'background.paper' }}>
+          <ListItemButton>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+          </ListItemButton>
+          <ListItemButton
+          >
+            <ListItemIcon>
+              <DraftsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Drafts" />
+          </ListItemButton>
+        </List>
+        <Divider />
+        <List component="nav" aria-label="secondary mailbox folder">
+          <ListItemButton
+          >
+            <ListItemText primary="Trash" />
+          </ListItemButton>
+          <ListItemButton
+          >
+            <ListItemText primary="Spam" />
+          </ListItemButton>
+          <Divider />
+
+        </List>
+
+      </Box>
     </Box>
   )
 }

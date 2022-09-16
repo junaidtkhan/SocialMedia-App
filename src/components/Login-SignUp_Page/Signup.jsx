@@ -4,10 +4,9 @@ import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
 import { Typography } from "@mui/material"
 
-export default function Login(props) {
+export default function Signup(props) {
     const [enteredPassword, setEnteredPassword] = useState()
     const [enteredEmail, setEnteredEmail] = useState()
-    const [isLogin, setIsLogin] = useState(false)
 
     const enteredPasswordHandler = (event) => {
         setEnteredPassword(event.target.value)
@@ -18,8 +17,8 @@ export default function Login(props) {
     const submitHandler = (event) => {
         event.preventDefault()
 
-        var email;
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAHRxUxnC1aSFYlwY8y_KzFAG2uQBgxd0I'
+       let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAHRxUxnC1aSFYlwY8y_KzFAG2uQBgxd0I'
+
 
         fetch(url,
             {
@@ -35,12 +34,6 @@ export default function Login(props) {
             }
         ).then(res => {
             if (res.ok) {
-                res.json().then(data => {
-                    console.log(data.email)
-                    
-                    // console.log(email)
-                    // props.sendToSignup(email)
-                })
 
             }
             else {
@@ -55,6 +48,7 @@ export default function Login(props) {
                 })
             }
         })
+        props.signup(false)
     }
     return (
         <Box display='flex' alignItems='center' justifyContent='center' mt={5}>
@@ -68,8 +62,7 @@ export default function Login(props) {
                     <input style={{ marginLeft: '6px' }} type="text" id='password' placeholder='Enter password' onChange={enteredPasswordHandler}></input>
                 </Box>
                 <button>
-                    Login
-                    {/* <Button sx={{ float: 'right', margin: 1 }} variant='contained'>Submit</Button> */}
+                    SignUp
                 </button>
             </form>
         </Box>
