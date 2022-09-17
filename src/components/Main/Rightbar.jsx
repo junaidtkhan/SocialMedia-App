@@ -34,23 +34,23 @@ export const Rightbar = () => {
 
             <ImageListItem >
               <img
-                src="https://picsum.photos/400"
+                src="https://random.imagecdn.app/400/400"
                 loading="lazy"
               />
             </ImageListItem>
             <ImageListItem >
               <img
-                src="https://picsum.photos/500"
+                src="https://random.imagecdn.app/400/400"
                 loading="lazy"
               />
             </ImageListItem>
             <ImageListItem >
               <img
-                src="https://picsum.photos/900"
+                src="https://random.imagecdn.app/400/400"
                 loading="lazy"
               />
             </ImageListItem>
-
+            
           </ImageList>
         </Box>
 

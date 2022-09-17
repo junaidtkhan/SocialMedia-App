@@ -1,8 +1,6 @@
-import { Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { Box, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import Divider from '@mui/material/Divider';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
+
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import React from 'react'
@@ -13,18 +11,20 @@ export const Sidebar = () => {
       <Box width="21%" position='fixed'>
 
         <List sx={{ width: '100%', fontSize: "5px", bgcolor: 'background.paper' }}>
+
           <ListItemButton>
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="Inbox" />
           </ListItemButton>
-          <ListItemButton
-          >
+
+          <ListItemButton>
             <ListItemIcon>
               <DraftsIcon />
             </ListItemIcon>
             <ListItemText primary="Drafts" />
+
           </ListItemButton>
         </List>
         <Divider />

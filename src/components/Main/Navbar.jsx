@@ -98,7 +98,7 @@ export const Navbar = (props) => {
       >
         <MenuItem >Profile</MenuItem>
         <MenuItem >My account</MenuItem>
-        <MenuItem >Logout</MenuItem>
+        <MenuItem onClick={(e)=>{props.setlogin(true)}}>Logout</MenuItem>
       </Menu>
     </AppBar>
 
