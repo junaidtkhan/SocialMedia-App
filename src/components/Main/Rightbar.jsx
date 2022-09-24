@@ -35,18 +35,21 @@ export const Rightbar = () => {
             <ImageListItem >
               <img
                 src="https://random.imagecdn.app/400/400"
+                alt="hello"
                 loading="lazy"
               />
             </ImageListItem>
             <ImageListItem >
               <img
                 src="https://random.imagecdn.app/400/400"
+                alt="hello"
                 loading="lazy"
               />
             </ImageListItem>
             <ImageListItem >
               <img
                 src="https://random.imagecdn.app/400/400"
+                alt="hello"
                 loading="lazy"
               />
             </ImageListItem>

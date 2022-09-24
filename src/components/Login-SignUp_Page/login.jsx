@@ -1,13 +1,17 @@
-import { useRef, useState } from "react"
-import Button from '@mui/material/Button'
-import Grid from "@mui/material/Grid"
+import { useState } from "react"
+import { useappStore } from "../Store/Store"
 import Box from "@mui/material/Box"
-import { Typography } from "@mui/material"
+import { auth } from "../../FirebaseConfig"
+import { signInWithEmailAndPassword } from "firebase/auth"
+
 
 export default function Login(props) {
+
     const [enteredPassword, setEnteredPassword] = useState()
     const [enteredEmail, setEnteredEmail] = useState()
-    const [isLogin, setIsLogin] = useState(false)
+    const setLoggedIn = useappStore((state) => (state.setLoggedIn))
+    const setUser = useappStore((state) => (state.setUser))
+
 
     const enteredPasswordHandler = (event) => {
         setEnteredPassword(event.target.value)
@@ -17,45 +21,21 @@ export default function Login(props) {
     }
     const submitHandler = (event) => {
         event.preventDefault()
+        signInWithEmailAndPassword(auth, enteredEmail, enteredPassword).then((cred) => {
+            alert('user logged in')
+           
 
-        var email;
-        let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAHRxUxnC1aSFYlwY8y_KzFAG2uQBgxd0I'
-
-        fetch(url,
-            {
-                method: "POST",
-                body: JSON.stringify({
-                    email: enteredEmail,
-                    password: enteredPassword,
-                    returnSecureToken: true
-                }),
-                header: {
-                    'Content-Type': 'application/json'
-                }
-            }
-        ).then(res => {
-            if (res.ok) {
-                res.json().then(data => {
-                    console.log(data.email)
-                    
-                    // console.log(email)
-                    // props.sendToSignup(email)
-                })
-
-            }
-            else {
-
-                return res.json().then(data => {
-                    let errorMessage = "Authentication failed"
-                    if (data && data.error && data.error.message) {
-                        errorMessage = data.error.message
-
-                    }
-                    alert(errorMessage)
-                })
-            }
+            setUser(cred.user)
+            setLoggedIn(true)
+        }).catch((err) => {
+            console.log(err.message)
         })
+
+       
     }
+
+
+
     return (
         <Box display='flex' alignItems='center' justifyContent='center' mt={5}>
             <form onSubmit={submitHandler}>
@@ -67,9 +47,8 @@ export default function Login(props) {
                     <label htmlFor="password">Password</label>
                     <input style={{ marginLeft: '6px' }} type="text" id='password' placeholder='Enter password' onChange={enteredPasswordHandler}></input>
                 </Box>
-                <button>
+                <button >
                     Login
-                    {/* <Button sx={{ float: 'right', margin: 1 }} variant='contained'>Submit</Button> */}
                 </button>
             </form>
         </Box>

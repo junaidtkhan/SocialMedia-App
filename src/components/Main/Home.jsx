@@ -1,10 +1,10 @@
-import { Add } from '@mui/icons-material'
 import { Box, Stack } from '@mui/system'
 import React from 'react'
 import { Feed } from './Feed'
 import { Navbar } from './Navbar'
-import { Rightbar } from './Rightbar'
 import { Sidebar } from './Sidebar'
+import { Rightbar } from './Rightbar'
+import { Add } from './Add'
 
 export const Home = (props) => {
     

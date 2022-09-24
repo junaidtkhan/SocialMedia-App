@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import Login from './login'
 import Signup from './Signup'
 
-export const AuthPage = (props) => {
-    const [signUp, setSignUp] = useState(true)
+export const AuthPage = () => {
+    const [signUp, setSignUp] = useState(false)
     const [signedInEmail, setSignedInEmail] = useState()
+    
     const setLoginHandler = () => {
         setSignUp(!signUp)
     }
@@ -16,7 +17,7 @@ export const AuthPage = (props) => {
         <div style={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center" }}>
             {/*signup={setSignUp*/}
             <div>
-                {signUp && <Signup setlogin={props.setlogin} />}
+                {signUp && <Signup setsignup={setSignUp}/>}
                 {!signUp && <Login sendToSignup={sendToSignUp} />}
             </div>
 

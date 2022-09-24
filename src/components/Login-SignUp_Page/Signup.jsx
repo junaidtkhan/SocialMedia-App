@@ -1,14 +1,15 @@
 import { useRef, useState } from "react"
-import Button from '@mui/material/Button'
-import Grid from "@mui/material/Grid"
 import Box from "@mui/material/Box"
-import { Typography } from "@mui/material"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../../FirebaseConfig"
+import { useappStore } from "../Store/Store"
+import { db } from '../../FirebaseConfig'
+import { addDoc, doc, collection, setDoc } from 'firebase/firestore'
 
 export default function Signup(props) {
     const [enteredPassword, setEnteredPassword] = useState()
     const [enteredEmail, setEnteredEmail] = useState()
+    const setLoggedIn = useappStore((state) => (state.setLoggedIn))
 
     const enteredPasswordHandler = (event) => {
         setEnteredPassword(event.target.value)
@@ -19,48 +20,20 @@ export default function Signup(props) {
     const submitHandler = (event) => {
         event.preventDefault()
         createUserWithEmailAndPassword(auth, enteredEmail, enteredPassword).then((cred) => {
-            console.log('user created:',cred)
-            if(cred.operationType==='signIn'){
-                props.setlogin(true)
-            }
+           console.log(`'user created:'+${cred.user}`)
+
+            setDoc(doc(db, 'users', `${cred.user.uid}`), { Posts: [] })
+           
+            props.setsignup(false)
             setEnteredEmail('')
             setEnteredPassword('')
-        }).catch(err=>{
+        }).catch(err => {
             alert(err.message)
         })
-        //    let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAHRxUxnC1aSFYlwY8y_KzFAG2uQBgxd0I'
 
 
-        //     fetch(url,
-        //         {
-        //             method: "POST",
-        //             body: JSON.stringify({
-        //                 email: enteredEmail,
-        //                 password: enteredPassword,
-        //                 returnSecureToken: true
-        //             }),
-        //             header: {
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         }
-        //     ).then(res => {
-        //         if (res.ok) {
-
-        //         }
-        //         else {
-
-        //             return res.json().then(data => {
-        //                 let errorMessage = "Authentication failed"
-        //                 if (data && data.error && data.error.message) {
-        //                     errorMessage = data.error.message
-
-        //                 }
-        //                 alert(errorMessage)
-        //             })
-        //         }
-        //     })
-        props.signup(false)
     }
+
     return (
         <Box display='flex' alignItems='center' justifyContent='center' mt={5}>
             <form onSubmit={submitHandler}>
@@ -76,6 +49,7 @@ export default function Signup(props) {
                     SignUp
                 </button>
             </form>
+
         </Box>
 
     )

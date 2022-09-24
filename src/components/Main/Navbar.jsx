@@ -1,5 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
+import { useappStore } from '../Store/Store';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../FirebaseConfig';
+
 import { AppBar, styled, Toolbar, Typography, Box, Button } from '@mui/material'
 import WebIcon from '@mui/icons-material/Web';
 import InputBase from '@mui/material/InputBase';
@@ -10,9 +14,10 @@ import DarkMode from '@mui/icons-material/DarkMode';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Switch from '@mui/material/Switch';
 
 export const Navbar = (props) => {
+  const setLoggedIn = useappStore((state) => (state.setLoggedIn))
+
   const [open, setOpen] = useState(false)
 
   const StyledToolbar = styled(Toolbar)({
@@ -45,14 +50,21 @@ export const Navbar = (props) => {
 
     [theme.breakpoints.down("sm")]: { display: 'flex', flexDirection: 'column', margin: '5px 0' }
   }))
-
+  const LogoutHandler = () => {
+    signOut(auth).then(() => {
+      alert('user logged out')
+      setLoggedIn(false)
+    }).catch((err)=>{
+      console.log(err.message)
+    })
+  }
   return (
     <AppBar position="sticky">
       <StyledToolbar sx={{ gap: '10px' }}>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>RiseTech</Typography>
         <WebIcon sx={{ display: { xs: "block", sm: "none" } }} />
-        <Search><InputBase placeholder=' Searching...'  /></Search>
-        
+        <Search><InputBase placeholder=' Searching...' /></Search>
+
         <Container>
 
           <Box>
@@ -96,9 +108,12 @@ export const Navbar = (props) => {
           horizontal: 'right',
         }}
       >
-        <MenuItem >Profile</MenuItem>
+        <MenuItem >
+          <label for="myfile">Profile</label>
+          <input type="file" id="myfile" name="myfile" />
+        </MenuItem>
         <MenuItem >My account</MenuItem>
-        <MenuItem onClick={(e)=>{props.setlogin(true)}}>Logout</MenuItem>
+        <MenuItem onClick={LogoutHandler}>Logout</MenuItem>
       </Menu>
     </AppBar>
 
