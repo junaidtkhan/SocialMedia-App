@@ -3,15 +3,15 @@ import { AuthPage } from "./components/Login-SignUp_Page/AuthPage";
 import { useappStore } from "./components/Store/Store";
 import { auth } from "./FirebaseConfig";
 
-
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
+import { v4 } from "uuid";
 
 
 function App() {
 
   const loggedIn = useappStore((state) => (state.loggedIn))
- 
+
 
 
 
@@ -27,9 +27,9 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      
-      {!loggedIn && <AuthPage />}
-      {loggedIn && <Home Mode={mode} SetMode={setMode} />}
+
+      {!loggedIn && <AuthPage key={v4()} />}
+      {loggedIn && <Home Mode={mode} SetMode={setMode} key={v4()} />}
     </ThemeProvider>
   );
 }

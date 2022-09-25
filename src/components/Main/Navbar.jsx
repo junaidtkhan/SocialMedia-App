@@ -14,6 +14,7 @@ import DarkMode from '@mui/icons-material/DarkMode';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { v4 } from 'uuid';
 
 export const Navbar = (props) => {
   const setLoggedIn = useappStore((state) => (state.setLoggedIn))
@@ -59,7 +60,7 @@ export const Navbar = (props) => {
     })
   }
   return (
-    <AppBar position="sticky">
+    <AppBar position="sticky" >
       <StyledToolbar sx={{ gap: '10px' }}>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>RiseTech</Typography>
         <WebIcon sx={{ display: { xs: "block", sm: "none" } }} />

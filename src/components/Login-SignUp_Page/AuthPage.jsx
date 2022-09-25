@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Login from './login'
 import Signup from './Signup'
+import { v4 } from 'uuid'
 
 export const AuthPage = () => {
     const [signUp, setSignUp] = useState(false)
     const [signedInEmail, setSignedInEmail] = useState()
-    
+
     const setLoginHandler = () => {
         setSignUp(!signUp)
     }
@@ -14,10 +15,10 @@ export const AuthPage = () => {
         setSignedInEmail(email)
     }
     return (
-        <div style={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center" }}>
+        <div style={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center" }} >
             {/*signup={setSignUp*/}
             <div>
-                {signUp && <Signup setsignup={setSignUp}/>}
+                {signUp && <Signup setsignup={setSignUp} />}
                 {!signUp && <Login sendToSignup={sendToSignUp} />}
             </div>
 

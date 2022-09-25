@@ -5,6 +5,7 @@ import { auth } from "../../FirebaseConfig"
 import { useappStore } from "../Store/Store"
 import { db } from '../../FirebaseConfig'
 import { addDoc, doc, collection, setDoc } from 'firebase/firestore'
+import { v4 } from "uuid"
 
 export default function Signup(props) {
     const [enteredPassword, setEnteredPassword] = useState()
@@ -35,7 +36,7 @@ export default function Signup(props) {
     }
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='center' mt={5}>
+        <Box display='flex' alignItems='center' justifyContent='center' mt={5} >
             <form onSubmit={submitHandler}>
                 <Box display='flex' p={1} justifyContent='space-between'>
                     <label htmlFor="enteredEmail">Email</label>

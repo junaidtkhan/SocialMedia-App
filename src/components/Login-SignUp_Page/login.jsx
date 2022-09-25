@@ -3,7 +3,8 @@ import { useappStore } from "../Store/Store"
 import Box from "@mui/material/Box"
 import { auth } from "../../FirebaseConfig"
 import { signInWithEmailAndPassword } from "firebase/auth"
-
+import { v4 } from "uuid"
+import { FetchingFeed } from "../Store/FetchingFeed"
 
 export default function Login(props) {
 
@@ -12,6 +13,7 @@ export default function Login(props) {
     const setLoggedIn = useappStore((state) => (state.setLoggedIn))
     const setUser = useappStore((state) => (state.setUser))
 
+    
 
     const enteredPasswordHandler = (event) => {
         setEnteredPassword(event.target.value)
@@ -23,7 +25,7 @@ export default function Login(props) {
         event.preventDefault()
         signInWithEmailAndPassword(auth, enteredEmail, enteredPassword).then((cred) => {
             alert('user logged in')
-           
+
 
             setUser(cred.user)
             setLoggedIn(true)
@@ -31,13 +33,13 @@ export default function Login(props) {
             console.log(err.message)
         })
 
-       
+
     }
 
-
+    FetchingFeed()
 
     return (
-        <Box display='flex' alignItems='center' justifyContent='center' mt={5}>
+        <Box display='flex' alignItems='center' justifyContent='center' mt={5} >
             <form onSubmit={submitHandler}>
                 <Box display='flex' p={1} justifyContent='space-between'>
                     <label htmlFor="enteredEmail">Email</label>

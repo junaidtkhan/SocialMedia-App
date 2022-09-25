@@ -4,10 +4,11 @@ import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import React from 'react'
+import { v4 } from 'uuid';
 
 export const Sidebar = () => {
   return (
-    <Box flex={1.5} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box flex={1.5} p={2} sx={{ display: { xs: "none", sm: "block" } }} key={v4()}>
       <Box width="21%" position='fixed'>
 
         <List sx={{ width: '100%', fontSize: "5px", bgcolor: 'background.paper' }}>

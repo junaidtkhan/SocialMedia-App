@@ -9,8 +9,8 @@ export const useappStore = create(
             setUser: (USER) => set((state) => ({ currentUser: USER })),
             uploadingPost: '',
             setPost: (data) => set((state) => ({ uploadingPost: data })),
-            postsList:[],
-            setPostsList:(post)=>set((state)=>({postsList:[...state.postsList,post]}))
+            list: null,
+            setList: (li) => set((state) => ({ list: [...li] }))
         }
     )
 )

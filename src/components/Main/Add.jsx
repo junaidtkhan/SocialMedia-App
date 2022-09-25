@@ -20,8 +20,6 @@ export const Add = () => {
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState(null)
     const [Description, setDescription] = useState('')
-    const setPost = useappStore((state) => (state.setPost))
-    const uploadingPost = useappStore((state) => (state.uploadingPost))
     const currentUser = useappStore((state) => (state.currentUser))
 
     const UserBox = styled(Box)({
@@ -61,6 +59,7 @@ export const Add = () => {
                     postID: uuidv4()
                 }
                 console.log(post)
+                
                 UploadToFirestore(post)
 
 
@@ -71,6 +70,7 @@ export const Add = () => {
         }).catch((err) => {
             alert(err.message)
         })
+
     }
     return (
         <>

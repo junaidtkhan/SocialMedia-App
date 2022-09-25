@@ -5,10 +5,11 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Divider from '@mui/material/Divider';
+import { v4 } from 'uuid';
 
 export const Rightbar = () => {
   return (
-    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box flex={2} p={2} sx={{ display: { xs: "none", sm: "block" } }} >
       <Box position="fixed" pr={1}>
 
         <Box m={1} >

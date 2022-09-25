@@ -15,10 +15,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
-export const Post = () => {
+import { v4 } from 'uuid';
+export const Post = (props) => {
   return (
     
-    <Card sx={{boxShadow: '6px 8px 20px -2px rgba(0,0,0,0.42)'}}>
+    <Card sx={{boxShadow: '6px 8px 20px -2px rgba(0,0,0,0.42)'}} >
     <CardHeader
       avatar={
         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
@@ -30,19 +31,17 @@ export const Post = () => {
           <MoreVertIcon />
         </IconButton>
       }
-      title="Shrimp and Chorizo Paella"
+      title={props.name}
       subheader="September 14, 2016"
     />
     <CardMedia
       component="img"
-      image="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80"
+      image={props.url}
       alt="Paella dish"
     />
     <CardContent>
       <Typography variant="body2" color="text.secondary">
-        This impressive paella is a perfect party dish and a fun meal to cook
-        together with your guests. Add 1 cup of frozen peas along with the mussels,
-        if you like.
+        {props.comments}
       </Typography>
     </CardContent>
     <CardActions disableSpacing>
