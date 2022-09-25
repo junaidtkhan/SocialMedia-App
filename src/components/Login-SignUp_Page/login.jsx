@@ -30,7 +30,7 @@ export default function Login(props) {
             setUser(cred.user)
             setLoggedIn(true)
         }).catch((err) => {
-            console.log(err.message)
+            alert(err.message)
         })
 
 
