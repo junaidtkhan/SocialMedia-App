@@ -3,8 +3,8 @@ import { auth } from '../../FirebaseConfig'
 export const useappStore = create(
     (set) => (
         {
-            loggedIn: '',
-            setLoggedIn: () => set((state) => ({ loggedIn: !state.loggedIn })),
+            loggedIn: false,
+            setLoggedIn: (condition) => set((state) => ({ loggedIn: condition })),
             currentUser: null,
             setUser: (USER) => set((state) => ({ currentUser: USER })),
             uploadingPost: '',

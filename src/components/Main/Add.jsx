@@ -10,17 +10,27 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import ImageIcon from '@mui/icons-material/Image';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { storage } from '../../FirebaseConfig';
+import { auth, storage } from '../../FirebaseConfig';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid';
-import { useappStore } from '../Store/Store';
 import { UploadToFirestore } from '../Store/UploadToFirestore'
+import { useEffect } from 'react';
+import { db } from '../../FirebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+import { useappStore } from '../Store/Store';
+import IconButton from '@mui/material/IconButton';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+
 
 export const Add = () => {
     const [open, setOpen] = useState(false)
     const [image, setImage] = useState(null)
     const [Description, setDescription] = useState('')
     const currentUser = useappStore((state) => (state.currentUser))
+    const setCurrentUser = useappStore((state) => (state.setUser))
+
+    console.log(auth.currentUser)
+    setCurrentUser(auth.currentUser)
 
     const UserBox = styled(Box)({
         display: 'flex',
@@ -42,7 +52,9 @@ export const Add = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+
         console.log(`images/${image.name}`)
+
         const imageRef = ref(storage, `images/${image.name}` + uuidv4())
 
         uploadBytes(imageRef, image).then((data) => {
@@ -51,15 +63,16 @@ export const Add = () => {
                 console.log(Description)
                 const uid = currentUser.uid
                 const post = {
+
                     postURL: url,
                     description: Description,
-                    Liked: false,
-                    Comments: [],
+                    liked: false,
+                    comments: [],
                     userID: uid,
                     postID: uuidv4()
                 }
                 console.log(post)
-                
+
                 UploadToFirestore(post)
 
 
@@ -70,8 +83,9 @@ export const Add = () => {
         }).catch((err) => {
             alert(err.message)
         })
-
     }
+
+
     return (
         <>
 
@@ -113,18 +127,29 @@ export const Add = () => {
                             variant="standard"
                             onChange={(e) => { setDescription(e.target.value) }}
                         />
-                        <Stack direction='row' gap={2} mt={2} mb={2}>
+                        <Stack direction='row' gap={2} mt={2} mb={2} alignItems='center'>
                             <EmojiEmotionsIcon color='primary' />
-                            <div>
+
+                            {/* <div>
 
                                 <label htmlFor='imageIcon'></label>
                                 <input type='file' id='imageIcon' onChange={(e) => { setImage(e.target.files[0]) }}></input>
-                            </div>
+                            </div> */}
 
                             <ImageIcon color='secondary' />
 
                             <VideoCameraBackIcon color='success' />
                             <PersonAddIcon color='error' />
+                            <Stack direction="row" alignItems="center" spacing={2} float='end'>
+                                {/* <Button variant="contained" component="label">
+                                    Upload
+                                    <input hidden accept="image/*" multiple type="file" />
+                                </Button> */}
+                                <IconButton color="primary" aria-label="upload picture" component="label">
+                                    <input hidden accept="image/*" type="file" onChange={(e) => { setImage(e.target.files[0]) }} />
+                                    <PhotoCamera />
+                                </IconButton>
+                            </Stack>
                         </Stack>
                         <Button sx={{ float: 'right' }} type='submit' > Submit</Button>
 

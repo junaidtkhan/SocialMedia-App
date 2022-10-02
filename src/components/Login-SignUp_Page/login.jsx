@@ -24,11 +24,11 @@ export default function Login(props) {
     const submitHandler = (event) => {
         event.preventDefault()
         signInWithEmailAndPassword(auth, enteredEmail, enteredPassword).then((cred) => {
+            
             alert('user logged in')
 
-
             setUser(cred.user)
-            setLoggedIn(true)
+            setLoggedIn()
         }).catch((err) => {
             alert(err.message)
         })
@@ -36,7 +36,7 @@ export default function Login(props) {
 
     }
 
-    FetchingFeed()
+   // FetchingFeed()
 
     return (
         <Box display='flex' alignItems='center' justifyContent='center' mt={5} >

@@ -4,16 +4,17 @@ import { useappStore } from './Store';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export const FetchingFeed = () => {
+function FetchingFeed(params) {
+    return new Promise((resolve, reject) => {
+        const setstorelist = useappStore((state) => (state.setList))
 
-    const setstorelist = useappStore((state) => (state.setList))
 
-    useEffect(() => {
         const temp = []
 
         getDocs(collection(db, "users")).then((querySnapshot) => {
 
             querySnapshot.forEach((doc) => {
+               
                 doc.data().Posts.forEach((post) => {
                     //console.log(post)
                     temp.push(post)
@@ -21,12 +22,28 @@ export const FetchingFeed = () => {
 
             });
             setstorelist(temp)
-        });
-    }, [])
-
-    // const unsub = onSnapshot((collection(db, "users")), (doc) => {
-    //     FetchingFeed()
-    // });
-
+            resolve('Data Fetched')
+        }).catch((err) => {
+            reject(err.message)
+        })
+    })
 }
+export default FetchingFeed
+// export const FetchingFeed = (params) => {
+    
+// }
+
+
+
+// export const FetchingFeed = new Promise((resolve, reject) => {
+//     try {
+
+//         resolve()
+//     } catch (error) {
+//         reject(error)
+//     }
+
+
+// })
+
 

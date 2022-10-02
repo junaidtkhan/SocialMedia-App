@@ -15,45 +15,74 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import CommentIcon from '@mui/icons-material/Comment';
 import { v4 } from 'uuid';
+import { Divider, FormControl, FormHelperText, FormLabel, TextareaAutosize, TextField } from '@mui/material';
 export const Post = (props) => {
+
+
+  const likeHandler = (event) => {
+    console.log(event.target)
+    //   const post = {
+
+    //     postURL: url,
+    //     description: Description,
+    //     liked: false,
+    //     comments: [],
+    //     userID: uid,
+    //     postID: uuidv4()
+    // }
+  }
   return (
-    
-    <Card sx={{boxShadow: '6px 8px 20px -2px rgba(0,0,0,0.42)'}} >
-    <CardHeader
-      avatar={
-        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-          R
-        </Avatar>
-      }
-      action={
-        <IconButton aria-label="settings">
-          <MoreVertIcon />
-        </IconButton>
-      }
-      title={props.name}
-      subheader="September 14, 2016"
-    />
-    <CardMedia
-      component="img"
-      image={props.url}
-      alt="Paella dish"
-    />
-    <CardContent>
-      <Typography variant="body2" color="text.secondary">
-        {props.comments}
+
+    <Card sx={{ boxShadow: '6px 8px 20px -2px rgba(0,0,0,0.42)' }} >
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={props.name}
+      // subheader={props.description}
+      />
+      <Typography sx={{ marginLeft: '20px', marginBottom: '5px', fontWeight: 'bold', fontFamily: 'sans-serif' }} variant="body2" color="text.secondary">
+        {props.description}
       </Typography>
-    </CardContent>
-    <CardActions disableSpacing>
-      <IconButton aria-label="add to favorites">
-      <Checkbox  icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{color:'red'}} />} />
-      </IconButton>
-      <IconButton aria-label="share">
-        <ShareIcon />
-      </IconButton>
+      <CardMedia sx={{ paddingBottom: '0' }}
+        component="img"
+        image={props.postURL}
+        alt="picture"
+      />
+      <CardContent>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <Checkbox onClick={likeHandler} icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color: 'red' }} />} />
 
-    </CardActions>
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <IconButton aria-label="comment" >
+          <CommentIcon />
+        </IconButton>
 
-  </Card>
+      </CardActions>
+      <Divider />
+      <TextField
+        sx={{ width: '100%' }}
+        id="standard-multiline-static"
+        autoFocus
+        placeholder="Type Comment here..."
+        variant="standard"
+        onChange={(e) => { }}
+      />
+
+    </Card>
   )
 }

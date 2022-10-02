@@ -22,10 +22,14 @@ export const Feed = () => {
       key={v4()}
     >
       {list.map((post) => (<Post
-        url={post.postURL}
-        comments={post.description}
+        postURL={post.postURL}
+        description={post.description}
         liked={post.Liked}
-        name={post.userID}
+        comments={post.comments}
+        name={post.name}
+        userID={post.userID}
+        postID={post.postID}
+        key={v4()}
       />))}
 
     </Box>

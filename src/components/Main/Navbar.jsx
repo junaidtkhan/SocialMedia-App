@@ -15,6 +15,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { v4 } from 'uuid';
+import { Refresh } from './Refresh';
 
 export const Navbar = (props) => {
   const setLoggedIn = useappStore((state) => (state.setLoggedIn))
@@ -54,8 +55,9 @@ export const Navbar = (props) => {
   const LogoutHandler = () => {
     signOut(auth).then(() => {
       alert('user logged out')
+      localStorage.setItem('user','')
       setLoggedIn(false)
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err.message)
     })
   }
@@ -67,7 +69,7 @@ export const Navbar = (props) => {
         <Search><InputBase placeholder=' Searching...' /></Search>
 
         <Container>
-
+          <Refresh />
           <Box>
             <Button color="secondary" onClick={e => props.setMode(props.mode === 'light' ? 'dark' : 'light')}>
 
