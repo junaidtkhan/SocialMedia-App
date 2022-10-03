@@ -29,7 +29,7 @@ export const Add = () => {
     const currentUser = useappStore((state) => (state.currentUser))
     const setCurrentUser = useappStore((state) => (state.setUser))
 
-    console.log(auth.currentUser)
+    //console.log(auth.currentUser)
     setCurrentUser(auth.currentUser)
 
     const UserBox = styled(Box)({
@@ -67,7 +67,6 @@ export const Add = () => {
                     postURL: url,
                     description: Description,
                     liked: false,
-                    comments: [],
                     userID: uid,
                     postID: uuidv4()
                 }

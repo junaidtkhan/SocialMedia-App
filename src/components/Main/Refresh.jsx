@@ -14,7 +14,9 @@ export const Refresh = () => {
         getDocs(collection(db, "users")).then((querySnapshot) => {
 
             querySnapshot.forEach((doc) => {
+
                 doc.data().Posts.forEach((post) => {
+                    post.name = doc.data().name
                     //console.log(post)
                     temp.push(post)
                 })

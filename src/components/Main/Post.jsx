@@ -17,21 +17,37 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import CommentIcon from '@mui/icons-material/Comment';
 import { v4 } from 'uuid';
-import { Divider, FormControl, FormHelperText, FormLabel, TextareaAutosize, TextField } from '@mui/material';
+import { Box, Button, Divider, FormControl, FormHelperText, FormLabel, TextareaAutosize, TextField } from '@mui/material';
+import { useState } from 'react';
+import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
+import { auth, db, } from '../../FirebaseConfig';
+import { UploadToFirestore } from '../Store/UploadToFirestore';
+
+
+
 export const Post = (props) => {
 
-
+  const [enteredComment, setEnteredComment] = useState('')
   const likeHandler = (event) => {
-    console.log(event.target)
-    //   const post = {
+    event.preventDefault()
+  }
+  const commentHandler = (e) => {
+    e.preventDefault()
 
-    //     postURL: url,
-    //     description: Description,
-    //     liked: false,
-    //     comments: [],
-    //     userID: uid,
-    //     postID: uuidv4()
-    // }
+    if(enteredComment==''){
+      alert('invalid input')
+      return
+    }
+    console.log('Commented')
+    const docRef = doc(db, 'comments', `${props.postID}`)
+
+    updateDoc(docRef, {
+      comment: arrayUnion(enteredComment)
+    }).then(() => {
+      setEnteredComment('')
+      console.log('comment uploaded')
+    })
+
   }
   return (
 
@@ -74,14 +90,22 @@ export const Post = (props) => {
 
       </CardActions>
       <Divider />
-      <TextField
-        sx={{ width: '100%' }}
-        id="standard-multiline-static"
-        autoFocus
-        placeholder="Type Comment here..."
-        variant="standard"
-        onChange={(e) => { }}
-      />
+
+      <form onSubmit={commentHandler}>
+        <Box display='flex'>
+
+          <TextField
+            sx={{ width: '100%' }}
+            id="standard-multiline-static"
+            autoFocus
+            placeholder="Type Comment here..."
+            variant="standard"
+            value={enteredComment}
+            onChange={(e) => { setEnteredComment(e.target.value) }}
+          />
+          <Button sx={{marginRight:'5px'}} type='submit'>Comment</Button>
+        </Box>
+      </form>
 
     </Card>
   )
