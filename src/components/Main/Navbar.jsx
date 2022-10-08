@@ -55,8 +55,8 @@ export const Navbar = (props) => {
   const LogoutHandler = () => {
     signOut(auth).then(() => {
       alert('user logged out')
-      localStorage.setItem('user','')
-      setLoggedIn(false)
+      //localStorage.setItem('user','')
+      //setLoggedIn(false)
     }).catch((err) => {
       console.log(err.message)
     })

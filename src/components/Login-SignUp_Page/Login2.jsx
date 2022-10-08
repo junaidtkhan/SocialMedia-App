@@ -18,6 +18,8 @@ import { auth } from "../../FirebaseConfig"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { v4 } from "uuid"
 import { FetchingFeed } from "../Store/FetchingFeed"
+
+
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -37,7 +39,7 @@ export default function Login() {
 
     const [enteredPassword, setEnteredPassword] = useState()
     const [enteredEmail, setEnteredEmail] = useState()
-    const setLoggedIn = useappStore((state) => (state.setLoggedIn))
+    //const setLoggedIn = useappStore((state) => (state.setLoggedIn))
     const setUser = useappStore((state) => (state.setUser))
 
     const enteredPasswordHandler = (event) => {
@@ -56,7 +58,7 @@ export default function Login() {
             const uid = cred.user.uid
             const userID = uid.toString()
             localStorage.setItem('user', userID)
-            setLoggedIn(true)
+            //setLoggedIn(true)
         }).catch((err) => {
             alert(err.message)
         })

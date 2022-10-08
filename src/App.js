@@ -2,7 +2,7 @@ import { Home } from "./components/Main/Home";
 import { AuthPage } from "./components/Login-SignUp_Page/AuthPage";
 import { useappStore } from "./components/Store/Store";
 import { auth } from "./FirebaseConfig";
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
@@ -13,9 +13,9 @@ import SignIn from "./components/Login-SignUp_Page/Signup2";
 function App() {
 
 
-  //const [loggedIn,setLoggedIn]=useState(false)
-  const loggedIn = useappStore((state) => (state.loggedIn))
-  const setLoggedIn = useappStore((state) => (state.setLoggedIn))
+  const [loggedIn,setLoggedIn]=useState(null)
+  //const loggedIn = useappStore((state) => (state.loggedIn))
+  //const setLoggedIn = useappStore((state) => (state.setLoggedIn))
 
   const [mode, setMode] = useState("light")
   const darkTheme = createTheme({
@@ -23,12 +23,25 @@ function App() {
       mode: mode
     }
   })
+  useEffect(() => {
 
-  //FetchingFeed();
-  const user = localStorage.getItem('user')
-  if (user) {
-    setLoggedIn(true)
-  }
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedIn(true)
+        console.log('logged-IN')
+      } else {
+        setLoggedIn(false)
+        console.log('logged-OUT')
+        
+      }
+    });
+  }, [])
+
+  // const user = localStorage.getItem('user')
+  // if (user) {
+  //   setLoggedIn(true)
+  // }
   return (
     <ThemeProvider theme={darkTheme}>
 
